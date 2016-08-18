@@ -1,18 +1,18 @@
-Bluemix = {};
+IBMID = {};
 
-// Request Bluemix credentials for the user
+// Request IBMID credentials for the user
 // @param options {optional}
 // @param credentialRequestCompleteCallback {Function} Callback function to call on
 //   completion. Takes one argument, credentialToken on success, or Error on
 //   error.
-Bluemix.requestCredential = function (options, credentialRequestCompleteCallback) {
+IBMID.requestCredential = function (options, credentialRequestCompleteCallback) {
   // support both (options, callback) and (callback).
   if (!credentialRequestCompleteCallback && typeof options === 'function') {
     credentialRequestCompleteCallback = options;
     options = {};
   }
 
-  var config = ServiceConfiguration.configurations.findOne({service: 'bluemix'});
+  var config = ServiceConfiguration.configurations.findOne({ service: 'ibmid' });
   if (!config) {
     credentialRequestCompleteCallback && credentialRequestCompleteCallback(
       new ServiceConfiguration.ConfigError());
@@ -25,11 +25,11 @@ Bluemix.requestCredential = function (options, credentialRequestCompleteCallback
   var flatScope = _.map(scope, encodeURIComponent).join('+');
 
   var loginStyle = OAuth._loginStyle('bluemix', config, options);
-  var redirectUri = config.redirectUri || OAuth._redirectUri('bluemix', config);
-  console.log('redirectUri',redirectUri)
+  var redirectUri = config.redirectUri || OAuth._redirectUri('ibmid', config);
+  console.log('redirectUri', redirectUri)
   var url = config.loginUrl || 'https://login.eu-gb.bluemix.net/UAALoginServerWAR/oauth/authorize';
 
-  var loginUrl = url  +
+  var loginUrl = url +
     '?client_id=' + config.clientId +
     '&scope=' + flatScope +
     '&redirect_uri=' + redirectUri +
@@ -42,6 +42,6 @@ Bluemix.requestCredential = function (options, credentialRequestCompleteCallback
     loginUrl: loginUrl,
     credentialRequestCompleteCallback: credentialRequestCompleteCallback,
     credentialToken: credentialToken,
-    popupOptions: {width: 900, height: 450}
+    popupOptions: { width: 900, height: 450 }
   });
 };
