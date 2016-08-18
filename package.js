@@ -1,5 +1,5 @@
 Package.describe({
-  name: 'keithmorganIBM:ibmid',
+  name: 'keithmorganibm:ibmid',
   version: '1.0.0',
   summary: 'IBM ID OAuth flow',
   git: 'https://github.com/keithmorganIBM/ibmid.git',
