@@ -27,7 +27,7 @@ IBMID.requestCredential = function (options, credentialRequestCompleteCallback) 
   var loginStyle = OAuth._loginStyle('bluemix', config, options);
   var redirectUri = config.redirectUri || OAuth._redirectUri('ibmid', config);
   console.log('redirectUri', redirectUri)
-  var url = config.loginUrl || 'https://login.eu-gb.bluemix.net/UAALoginServerWAR/oauth/authorize';
+  var url = config.loginUrl || 'https://prepiam.toronto.ca.ibm.com/idaas/oidc/endpoint/default/authorize';
 
   var loginUrl = url +
     '?client_id=' + config.clientId +
@@ -37,7 +37,7 @@ IBMID.requestCredential = function (options, credentialRequestCompleteCallback) 
     '&state=' + OAuth._stateParam(loginStyle, credentialToken);
 
   OAuth.launchLogin({
-    loginService: "bluemix",
+    loginService: "ibmid",
     loginStyle: loginStyle,
     loginUrl: loginUrl,
     credentialRequestCompleteCallback: credentialRequestCompleteCallback,

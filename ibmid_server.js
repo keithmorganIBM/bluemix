@@ -1,6 +1,6 @@
 IBMID = {};
 
-OAuth.registerService('bluemix', 2, null, function (query) {
+OAuth.registerService('ibmid', 2, null, function (query) {
 
   var data = getAccessToken(query);
   console.log(data);
@@ -35,9 +35,9 @@ var getAccessToken = function (query) {
     throw new ServiceConfiguration.ConfigError();
 
   var basicAuth = 'Basic ' + new Buffer(config.clientId + ':' + config.secret).toString('base64');
-  var redirectUri = config.redirectUri || OAuth._redirectUri('bluemix', config);
+  var redirectUri = config.redirectUri || OAuth._redirectUri('ibmid', config);
   var response;
-  var tokenUrl = config.tokenUrl || "https://uaa.eu-gb.bluemix.net/oauth/token";
+  var tokenUrl = config.tokenUrl || "https://prepiam.toronto.ca.ibm.com/idaas/oidc/endpoint/default/token";
   try {
     response = HTTP.post(
       tokenUrl, {
@@ -72,7 +72,7 @@ var getIdentity = function (accessToken) {
     throw new ServiceConfiguration.ConfigError();
 
   try {
-    var userInfoUrl = config.userInfoUrl || "https://uaa.eu-gb.bluemix.net/userinfo";
+    var userInfoUrl = config.userInfoUrl || "https://prepiam.toronto.ca.ibm.com/idaas/oidc/endpoint/default/introspect"; //https://uaa.eu-gb.bluemix.net/userinfo";
     var url = userInfoUrl + "?access_token=" + accessToken;
     return JSON.parse(HTTP.get(url).content);
   } catch (err) {
