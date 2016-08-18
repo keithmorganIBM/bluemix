@@ -12,7 +12,7 @@ IBMID.requestCredential = function (options, credentialRequestCompleteCallback) 
     options = {};
   }
 
-  var config = ServiceConfiguration.configurations.findOne({ service: 'ibmid' });
+  var config = ServiceConfiguration.configurations.findOne({ service: 'ibm' });
   if (!config) {
     credentialRequestCompleteCallback && credentialRequestCompleteCallback(
       new ServiceConfiguration.ConfigError());
@@ -24,8 +24,8 @@ IBMID.requestCredential = function (options, credentialRequestCompleteCallback) 
   //var scope = (options && options.requestPermissions) || ['profile'];
   var flatScope = _.map(scope, encodeURIComponent).join('+');
 
-  var loginStyle = OAuth._loginStyle('bluemix', config, options);
-  var redirectUri = config.redirectUri || OAuth._redirectUri('ibmid', config);
+  var loginStyle = OAuth._loginStyle('ibm', config, options);
+  var redirectUri = config.redirectUri || OAuth._redirectUri('ibm', config);
   console.log('redirectUri', redirectUri)
   var url = config.loginUrl || 'https://prepiam.toronto.ca.ibm.com/idaas/oidc/endpoint/default/authorize';
 
@@ -37,7 +37,7 @@ IBMID.requestCredential = function (options, credentialRequestCompleteCallback) 
     '&state=' + OAuth._stateParam(loginStyle, credentialToken);
 
   OAuth.launchLogin({
-    loginService: "ibmid",
+    loginService: "ibm",
     loginStyle: loginStyle,
     loginUrl: loginUrl,
     credentialRequestCompleteCallback: credentialRequestCompleteCallback,

@@ -1,6 +1,6 @@
 IBMID = {};
 
-OAuth.registerService('ibmid', 2, null, function (query) {
+OAuth.registerService('ibm', 2, null, function (query) {
 
   var data = getAccessToken(query);
   console.log(data);
@@ -30,12 +30,12 @@ if (Meteor.release)
   userAgent += "/" + Meteor.release;
 
 var getAccessToken = function (query) {
-  var config = ServiceConfiguration.configurations.findOne({ service: 'ibmid' });
+  var config = ServiceConfiguration.configurations.findOne({ service: 'ibm' });
   if (!config)
     throw new ServiceConfiguration.ConfigError();
 
   var basicAuth = 'Basic ' + new Buffer(config.clientId + ':' + config.secret).toString('base64');
-  var redirectUri = config.redirectUri || OAuth._redirectUri('ibmid', config);
+  var redirectUri = config.redirectUri || OAuth._redirectUri('ibm', config);
   var response;
   var tokenUrl = config.tokenUrl || "https://prepiam.toronto.ca.ibm.com/idaas/oidc/endpoint/default/token";
   try {
@@ -67,7 +67,7 @@ var getAccessToken = function (query) {
 
 var getIdentity = function (accessToken) {
   // get the config
-  var config = ServiceConfiguration.configurations.findOne({ service: 'ibmid' });
+  var config = ServiceConfiguration.configurations.findOne({ service: 'ibm' });
   if (!config)
     throw new ServiceConfiguration.ConfigError();
 
